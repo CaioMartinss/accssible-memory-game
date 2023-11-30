@@ -1,0 +1,34 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+  
+  .memory-game {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-gap: 10px;
+  }
+  
+  .card {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 2px solid #333;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .card.flipped {
+    background-color: #ddd; /* Cor para indicar que a carta está virada */
+  }
+  
+  .card.matched {
+    background-color: #8aff8a; /* Cor para indicar que o par foi encontrado */
+  }
+  
