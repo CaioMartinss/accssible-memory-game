@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.className = 'card'
       card.dataset.value = imagePath
       card.dataset.index = index
-      cardImage.src = '../accssible-memory-game/assets/carta_virada.png' // Imagem da parte de trás da carta
+      cardImage.src = '../accssible-memory-game/assets/carta_virada.svg' // Imagem da parte de trás da carta
       cardImage.alt = 'Card Back' // Texto alternativo para a imagem da parte de trás
       card.appendChild(cardImage)
       card.addEventListener('click', flipCard)
@@ -49,10 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const cardImage = card.querySelector('img')
         cardImage.src = card.dataset.value
         setTimeout(() => {
-          cardImage.src = '../accssible-memory-game/assets/carta_virada.png'
+          cardImage.src = '../accssible-memory-game/assets/carta_virada.svg'
         }, 3000) // 3 segundos para memorização
       })
-    }, 1000)
+    }, 300)
   }
 
   // Adiciona a lógica para virar as cartas
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       flippedCards.push(selectedCard)
 
       if (flippedCards.length === 2) {
-        setTimeout(checkMatch, 1000)
+        setTimeout(checkMatch, 500)
       }
     }
   }
@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Cartas não formam um par, vira de volta
       const card1Image = card1.querySelector('img')
       const card2Image = card2.querySelector('img')
-      card1Image.src = '../accssible-memory-game/assets/carta_virada.png'
-      card2Image.src = '../accssible-memory-game/assets/carta_virada.png'
+      card1Image.src = '../accssible-memory-game/assets/carta_virada.svg'
+      card2Image.src = '../accssible-memory-game/assets/carta_virada.svg'
     }
 
     flippedCards = [] // Limpa as cartas viradas
@@ -96,8 +96,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Verifica se todas as cartas foram encontradas
   const checkWin = () => {
     if (pairsFound === cardImages.length) {
-      alert('Parabéns, você encontrou todos os pares!')
+      showSuccessMessage()
     }
+  }
+
+  const showSuccessMessage = () => {
+    const successMessage = document.querySelector('.success-message')
+    successMessage.classList.toggle('hidden', pairsFound !== cardImages.length)
   }
 
   createCards() // Inicia o jogo ao carregar a página

@@ -1,47 +1,15 @@
-/*
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-  }
-  
-  .memory-game {
-    display: grid;
-    grid-template-columns: repeat(4, 100px);
-    grid-gap: 10px;
-  }
-  
-  .card {
-    width: 100px;
-    height: 100px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border: 2px solid #333;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .card.flipped {
-    background-color: #ddd; 
-  }
-  
-  .card.matched {
-    background-color: #8aff8a; 
-  }
-  */
-
-/* main.css */
 body {
   font-family: 'Arial', sans-serif;
   text-align: center;
 }
 
 h1 {
-  color: #333;
+  color: #000000;
+}
+
+img {
+  width: 70px;
+  height: 70px;
 }
 
 .memory-game {
@@ -55,16 +23,25 @@ h1 {
   width: 80px;
   height: 80px;
   margin: 5px;
-  background-color: #ddd;
+  border: solid 4px rgb(0, 0, 0);
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 12px;
   font-size: 20px;
   cursor: pointer;
 }
 
-img {
-  width: 70px;
-  height: 70px;
+.success-message.hidden {
+  display: none;
 }
-/* Adicione mais estilos conforme necessário */
+
+.button-reiniciar {
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
