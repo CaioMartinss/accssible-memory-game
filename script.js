@@ -1,69 +1,104 @@
-const cardImages = [
-    'image1.jpg',
-    'image2.jpg',
-    'image3.jpg',
-    'image4.jpg',
-    'image5.jpg',
-    'image6.jpg',
-    'image7.jpg',
-    'image8.jpg',
-];
+// script.js
+document.addEventListener('DOMContentLoaded', () => {
+  const memoryGame = document.getElementById('memoryGame')
+  const cardImages = [
+    '../accssible-memory-game/assets/coracao.svg',
+    '../accssible-memory-game/assets/fantasma.svg',
+    '../accssible-memory-game/assets/dragao.svg',
+    '../accssible-memory-game/assets/gamepad.svg',
+    '../accssible-memory-game/assets/caveira.svg',
+    '../accssible-memory-game/assets/tabuleiro_de_xadrez.svg',
+    '../accssible-memory-game/assets/quadrado.svg',
+    '../accssible-memory-game/assets/chapeu_de_mago.svg'
+  ] // Pares de valores para as cartas
 
-const generateCards = () => {
-    const cards = [...cardImages, ...cardImages];
-    cards.sort(() => Math.random() - 0.5);
-    return cards;
-};
+  // Duplica os valores para criar pares
+  const allCardImages = cardImages.concat(cardImages)
 
-const createCardElement = (image) => {
-    const card = document.createElement('div');
-    card.classList.add('card');
-    card.style.backgroundImage = `url(${image})`;
-    card.addEventListener('click', () => flipCard(card, image));
-    return card;
-};
+  let pairsFound = 0 // Contador de pares encontrados
 
-const initializeGame = () => {
-    const memoryGame = document.getElementById('memoryGame');
-    const cards = generateCards();
-
-    cards.forEach((image) => {
-        const card = createCardElement(image);
-        memoryGame.appendChild(card);
-    });
-};
-
-let flippedCards = [];
-let matchedPairs = 0;
-
-const flipCard = (card, image) => {
-    if (!flippedCards.includes(card) && flippedCards.length < 2) {
-        card.classList.add('flipped');
-        flippedCards.push({ card, image });
-
-        if (flippedCards.length === 2) {
-            setTimeout(() => checkMatch(), 500);
-        }
+  // Função para embaralhar as cartas
+  const shuffleCards = array => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[array[i], array[j]] = [array[j], array[i]]
     }
-};
+  }
 
-const checkMatch = () => {
-    const [card1, card2] = flippedCards;
+  // Função para criar as cartas e adicioná-las ao DOM
+  const createCards = () => {
+    shuffleCards(allCardImages)
 
-    if (card1.image === card2.image) {
-        card1.card.classList.add('matched');
-        card2.card.classList.add('matched');
-        matchedPairs++;
+    allCardImages.forEach((imagePath, index) => {
+      const card = document.createElement('div')
+      const cardImage = document.createElement('img')
+      card.className = 'card'
+      card.dataset.value = imagePath
+      card.dataset.index = index
+      cardImage.src = '../accssible-memory-game/assets/carta_virada.png' // Imagem da parte de trás da carta
+      cardImage.alt = 'Card Back' // Texto alternativo para a imagem da parte de trás
+      card.appendChild(cardImage)
+      card.addEventListener('click', flipCard)
+      memoryGame.appendChild(card)
+    })
 
-        if (matchedPairs === cardImages.length) {
-            alert('Parabéns! Você completou o jogo!');
-        }
+    // Mostra todas as cartas por um tempo para memorização
+    setTimeout(() => {
+      const allCards = document.querySelectorAll('.card')
+      allCards.forEach(card => {
+        const cardImage = card.querySelector('img')
+        cardImage.src = card.dataset.value
+        setTimeout(() => {
+          cardImage.src = '../accssible-memory-game/assets/carta_virada.png'
+        }, 3000) // 3 segundos para memorização
+      })
+    }, 1000)
+  }
+
+  // Adiciona a lógica para virar as cartas
+  let flippedCards = []
+  const flipCard = event => {
+    const selectedCard = event.currentTarget
+    const cardImage = selectedCard.querySelector('img')
+
+    // Evita clicar na mesma carta ou cartas já viradas
+    if (flippedCards.length < 2 && !flippedCards.includes(selectedCard)) {
+      cardImage.src = selectedCard.dataset.value // Mostra a imagem
+      flippedCards.push(selectedCard)
+
+      if (flippedCards.length === 2) {
+        setTimeout(checkMatch, 1000)
+      }
+    }
+  }
+
+  // Verifica se as cartas viradas formam um par
+  const checkMatch = () => {
+    const [card1, card2] = flippedCards
+
+    if (card1.dataset.value === card2.dataset.value) {
+      // Cartas formam um par
+      card1.removeEventListener('click', flipCard)
+      card2.removeEventListener('click', flipCard)
+      pairsFound++
+      checkWin()
     } else {
-        card1.card.classList.remove('flipped');
-        card2.card.classList.remove('flipped');
+      // Cartas não formam um par, vira de volta
+      const card1Image = card1.querySelector('img')
+      const card2Image = card2.querySelector('img')
+      card1Image.src = '../accssible-memory-game/assets/carta_virada.png'
+      card2Image.src = '../accssible-memory-game/assets/carta_virada.png'
     }
 
-    flippedCards = [];
-};
+    flippedCards = [] // Limpa as cartas viradas
+  }
 
-initializeGame();
+  // Verifica se todas as cartas foram encontradas
+  const checkWin = () => {
+    if (pairsFound === cardImages.length) {
+      alert('Parabéns, você encontrou todos os pares!')
+    }
+  }
+
+  createCards() // Inicia o jogo ao carregar a página
+})
