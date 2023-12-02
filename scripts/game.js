@@ -1,3 +1,50 @@
+// Obter a string de consulta da URL
+const queryString = window.location.search
+
+// Criar um objeto URLSearchParams com a string de consulta
+const params = new URLSearchParams(queryString)
+
+// Obter o valor do parâmetro 'name' (nome do usuário)
+const userName = params.get('name')
+
+function createUser() {
+  const user = {
+    name: userName,
+    score: 0
+  }
+  axios
+    .post(`http://localhost:3006/user`, user)
+    .then(response => {
+      const user = response.data
+      console.log(user)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+}
+
+if (userName.length > 0) {
+  createUser()
+} else {
+  alert('não foi possivel acessar o nome do usuario')
+}
+
+function updateUser() {
+  const user = {
+    name: userName,
+    score: 0
+  }
+  axios
+    .put(`http://localhost:3006/user`, user)
+    .then(response => {
+      const user = response.data
+      console.log(user)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+}
+
 // script.js
 document.addEventListener('DOMContentLoaded', () => {
   const memoryGame = document.getElementById('memoryGame')

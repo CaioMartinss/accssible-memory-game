@@ -1,11 +1,3 @@
-axios
-  .get('http://192.168.1.8:3006/')
-  .then(response => {
-    console.log(response.data)
-  })
-  .catch(error => {
-    console.log(error)
-  })
 // welcome.js
 function startGame() {
   const playerNameInput = document.getElementById('playerName')
@@ -16,5 +8,7 @@ function startGame() {
     window.location.href = `../../accssible-memory-game/pages/game.html?name=${encodeURIComponent(
       playerName
     )}`
+  } else {
+    alert('Digite seu nome para começar!')
   }
 }
