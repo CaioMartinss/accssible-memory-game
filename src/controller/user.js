@@ -5,6 +5,7 @@ import {
   deleteUser,
   updateUser
 } from '../services/user.js'
+
 const router = Router()
 
 router.get('/', async (req, res) => {
@@ -22,13 +23,13 @@ router.post('/', async (req, res) => {
 })
 
 router.delete('/:userId', async (req, res) => {
-  await deleteUser(req.params.id)
+  await deleteUser(req.params.userId)
   res.send()
 })
 
 router.put('/:userId', async (req, res) => {
-  await updateUser(req.params.id, req.body)
-  res.send()
+  const userUpdated = await updateUser(req.params.userId, req.body)
+  res.send(userUpdated)
 })
 
 export default router

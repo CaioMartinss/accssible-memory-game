@@ -1,7 +1,7 @@
-// Obter a string de consulta da URL
+// Numero de tentativas
+let attempts = 0
+// Obter o nome do usuario pela URL
 const queryString = window.location.search
-
-// Criar um objeto URLSearchParams com a string de consulta
 const params = new URLSearchParams(queryString)
 
 // Obter o valor do parâmetro 'name' (nome do usuário)
@@ -13,8 +13,8 @@ function getUserLocalStorage(key) {
 }
 
 // Função para definir um cookie
-function setUserLocalStorage(key, value) {
-  localStorage.setItem(key, value)
+function setUserLocalStorage(key, data) {
+  localStorage.setItem(key, data)
 }
 
 function createUser() {
@@ -31,7 +31,7 @@ function createUser() {
       .then(response => {
         const user = response.data
         setUserLocalStorage('user', JSON.stringify(user))
-        console.log(`usuario salvo: ${user}`)
+        console.log(`usuario salvo, id: ${user._id}`)
       })
       .catch(error => {
         console.log(error)
@@ -41,17 +41,19 @@ function createUser() {
 
 function updateUser(score) {
   const existingUser = getUserLocalStorage('user')
-
   if (existingUser) {
-    const user = JSON.parse(existingUser)
+    let user = JSON.parse(existingUser)
     user.score = score
-
     axios
-      .put(`http://localhost:3006/user`, user)
+      .put(`http://localhost:3006/user/${user._id}`, user)
       .then(response => {
         const updatedUser = response.data
-        setUserLocalStorage('user', JSON.stringify(updatedUser))
-        console.log(updatedUser)
+        if (updatedUser.length === 0) {
+          console.log('Não foi obtida resposta da api')
+        } else {
+          setUserLocalStorage('user', JSON.stringify(updatedUser))
+          console.log(`Score do usuario atualizado: ${updatedUser.score}`)
+        }
       })
       .catch(error => {
         console.log(error)
@@ -122,12 +124,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectedCard = event.currentTarget
     const cardImage = selectedCard.querySelector('img')
 
-    // Evita clicar na mesma carta ou cartas já viradas
     if (flippedCards.length < 2 && !flippedCards.includes(selectedCard)) {
-      cardImage.src = selectedCard.dataset.value // Mostra a imagem
+      cardImage.src = selectedCard.dataset.value
       flippedCards.push(selectedCard)
 
       if (flippedCards.length === 2) {
+        attempts++ // Incrementa o número de tentativas após dois cliques
         setTimeout(checkMatch, 500)
       }
     }
@@ -154,11 +156,20 @@ document.addEventListener('DOMContentLoaded', () => {
     flippedCards = [] // Limpa as cartas viradas
   }
 
+  // Calcula a pontuação do jogador
+  const calculateScore = (attempts, maxAttempts) => {
+    const maxScore = 1500 // Pontuação máxima por partida
+    const score = Math.max(0, maxScore - (attempts / maxAttempts) * maxScore)
+    return Math.round(score)
+  }
+
   // Verifica se todas as cartas foram encontradas
   const checkWin = () => {
     if (pairsFound === cardImages.length) {
-      showSuccessMessage()
-      updateUser()
+      const maxAttempts = cardImages.length * 2 // Número máximo de tentativas possíveis
+      const score = calculateScore(attempts, maxAttempts)
+      showSuccessMessage(score)
+      updateUser(score)
     }
   }
 
