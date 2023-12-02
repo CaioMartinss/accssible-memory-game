@@ -12,6 +12,7 @@ function createUser() {
     name: userName,
     score: 0
   }
+
   axios
     .post(`http://localhost:3006/user`, user)
     .then(response => {
@@ -23,10 +24,10 @@ function createUser() {
     })
 }
 
-if (userName.length > 0) {
+if (userName && userName.trim().length > 0) {
   createUser()
 } else {
-  alert('não foi possivel acessar o nome do usuario')
+  alert('Não foi possível acessar o nome do usuário na URL.')
 }
 
 function updateUser() {
@@ -34,6 +35,7 @@ function updateUser() {
     name: userName,
     score: 0
   }
+
   axios
     .put(`http://localhost:3006/user`, user)
     .then(response => {
