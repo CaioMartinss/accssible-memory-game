@@ -1,48 +1,18 @@
-const express = require('express')
-const mongoose = require('mongoose')
+import express from 'express'
+import bodyParser from 'body-parser'
+import userController from './controller/user.js'
 
 const app = express()
-const router = express.Router()
+const port = 3006
 
-app.use(express.json())
-app.use(router)
+app.use(bodyParser.json())
 
-const Score = mongoose.model('Score', {
-  name: String,
-  score: Number
+app.get('/', (req, res) => {
+  res.send('Hello World!')
 })
 
-router.get('/', async (req, res) => {
-  const scores = await Score.find()
-  return res.send(scores)
-})
+app.use('/user', userController)
 
-router.post('/', async (req, res) => {
-  const score = new Score({
-    name: req.body.name,
-    score: req.body.score
-  })
-
-  await score.save()
-  return res.send(score)
-})
-
-router.delete('/:id', async (req, res) => {
-  const score = await Score.findByIdAndDelete(req.params.id)
-  return res.send(score)
-})
-
-router.put('/:id', async (req, res) => {
-  const score = await Score.findByIdAndUpdate(req.params.id, {
-    name: req.body.name,
-    score: req.body.score
-  })
-  return res.send(score)
-})
-
-app.listen(3006, () => {
-  mongoose.connect(
-    'mongodb+srv://alefe:z832JtAo8wiGt9ae@accssible-memory-game.4obwt2p.mongodb.net/?retryWrites=true&w=majority'
-  )
-  console.log('Server running on port 3006')
+app.listen(port, () => {
+  console.log(`App rodando em http://localhost:${port}`)
 })

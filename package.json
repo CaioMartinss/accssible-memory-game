@@ -1,17 +1,22 @@
 {
-  "name": "accssible-memory-game",
+  "name": "backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon --exec babel-node src/index.js"
   },
   "keywords": [],
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "body-parse": "^0.1.0",
     "express": "^4.18.2",
-    "mongoose": "^8.0.2",
+    "mongoose": "^8.0.2"
+  },
+  "devDependencies": {
     "nodemon": "^3.0.2"
   }
 }
