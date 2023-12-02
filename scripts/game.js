@@ -7,44 +7,56 @@ const params = new URLSearchParams(queryString)
 // Obter o valor do parâmetro 'name' (nome do usuário)
 const userName = params.get('name')
 
+// Função para criar ou obter o cookie
+function getUserLocalStorage(key) {
+  return localStorage.getItem(key)
+}
+
+// Função para definir um cookie
+function setUserLocalStorage(key, value) {
+  localStorage.setItem(key, value)
+}
+
 function createUser() {
-  const user = {
-    name: userName,
-    score: 0
-  }
+  const existingUser = getUserLocalStorage('user')
 
-  axios
-    .post(`http://localhost:3006/user`, user)
-    .then(response => {
-      const user = response.data
-      console.log(user)
-    })
-    .catch(error => {
-      console.log(error)
-    })
+  if (!existingUser) {
+    const user = {
+      name: userName,
+      score: 0
+    }
+
+    axios
+      .post(`http://localhost:3006/user`, user)
+      .then(response => {
+        const user = response.data
+        setUserLocalStorage('user', JSON.stringify(user))
+        console.log(`usuario salvo: ${user}`)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 }
 
-if (userName && userName.trim().length > 0) {
-  createUser()
-} else {
-  alert('Não foi possível acessar o nome do usuário na URL.')
-}
+function updateUser(score) {
+  const existingUser = getUserLocalStorage('user')
 
-function updateUser() {
-  const user = {
-    name: userName,
-    score: 0
+  if (existingUser) {
+    const user = JSON.parse(existingUser)
+    user.score = score
+
+    axios
+      .put(`http://localhost:3006/user`, user)
+      .then(response => {
+        const updatedUser = response.data
+        setUserLocalStorage('user', JSON.stringify(updatedUser))
+        console.log(updatedUser)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
-
-  axios
-    .put(`http://localhost:3006/user`, user)
-    .then(response => {
-      const user = response.data
-      console.log(user)
-    })
-    .catch(error => {
-      console.log(error)
-    })
 }
 
 // script.js
@@ -146,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkWin = () => {
     if (pairsFound === cardImages.length) {
       showSuccessMessage()
+      updateUser()
     }
   }
 
@@ -154,5 +167,10 @@ document.addEventListener('DOMContentLoaded', () => {
     successMessage.classList.toggle('hidden', pairsFound !== cardImages.length)
   }
 
+  const checkUser = () => {
+    createUser() // Chama a função para criar o usuário
+  }
+
+  checkUser() // Chama a verificação ao carregar a página
   createCards() // Inicia o jogo ao carregar a página
 })
