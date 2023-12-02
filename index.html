@@ -3,32 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="main.css" />
-    <title>Jogo de Memória Acessível</title>
+    <link rel="stylesheet" href="../accssible-memory-game/styles/index.css" />
+    <title>Jogo de Memória Acessível - Boas-vindas</title>
   </head>
 
   <body>
-    <h1>Jogo de Memória Acessível</h1>
-    <div class="memory-game" id="memoryGame">
-      <!-- As cartas serão geradas dinamicamente com JavaScript -->
+    <div class="welcome-container">
+      <h1>Bem-vindo ao Jogo de Memória Acessível!</h1>
+      <p>Por favor, digite seu nome para começar:</p>
+      <input type="text" id="playerName" placeholder="Seu Nome" required />
+      <button onclick="startGame()">Start</button>
     </div>
 
-    <div class="success-message hidden">
-      <div class="success-message-text">
-        <h2>Parabéns!</h2>
-        <p>Você completou o jogo.</p>
-      </div>
-    </div>
-
-    <button class="button-reiniciar" onclick="reiniciar_o_jogo()">
-      Reiniciar
-    </button>
-
-    <script src="script.js"></script>
-    <script>
-      function reiniciar_o_jogo() {
-        location.reload()
-      }
-    </script>
+    <script src="../accssible-memory-game/scripts/index.js"></script>
   </body>
 </html>

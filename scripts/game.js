@@ -2,14 +2,14 @@
 document.addEventListener('DOMContentLoaded', () => {
   const memoryGame = document.getElementById('memoryGame')
   const cardImages = [
-    '../accssible-memory-game/assets/coracao.svg',
-    '../accssible-memory-game/assets/fantasma.svg',
-    '../accssible-memory-game/assets/dragao.svg',
-    '../accssible-memory-game/assets/gamepad.svg',
-    '../accssible-memory-game/assets/caveira.svg',
-    '../accssible-memory-game/assets/tabuleiro_de_xadrez.svg',
-    '../accssible-memory-game/assets/quadrado.svg',
-    '../accssible-memory-game/assets/chapeu_de_mago.svg'
+    '../assets/coracao.svg',
+    '../assets/fantasma.svg',
+    '../assets/dragao.svg',
+    '../assets/gamepad.svg',
+    '../assets/caveira.svg',
+    '../assets/tabuleiro_de_xadrez.svg',
+    '../assets/quadrado.svg',
+    '../assets/chapeu_de_mago.svg'
   ] // Pares de valores para as cartas
 
   // Duplica os valores para criar pares
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.className = 'card'
       card.dataset.value = imagePath
       card.dataset.index = index
-      cardImage.src = '../accssible-memory-game/assets/carta_virada.svg' // Imagem da parte de trás da carta
+      cardImage.src = '../assets/carta_virada.svg' // Imagem da parte de trás da carta
       cardImage.alt = 'Card Back' // Texto alternativo para a imagem da parte de trás
       card.appendChild(cardImage)
       card.addEventListener('click', flipCard)
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cardImage = card.querySelector('img')
         cardImage.src = card.dataset.value
         setTimeout(() => {
-          cardImage.src = '../accssible-memory-game/assets/carta_virada.svg'
+          cardImage.src = '../assets/carta_virada.svg'
         }, 3000) // 3 segundos para memorização
       })
     }, 300)
@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Cartas não formam um par, vira de volta
       const card1Image = card1.querySelector('img')
       const card2Image = card2.querySelector('img')
-      card1Image.src = '../accssible-memory-game/assets/carta_virada.svg'
-      card2Image.src = '../accssible-memory-game/assets/carta_virada.svg'
+      card1Image.src = '../assets/carta_virada.svg'
+      card2Image.src = '../assets/carta_virada.svg'
     }
 
     flippedCards = [] // Limpa as cartas viradas
