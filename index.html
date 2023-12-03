@@ -18,8 +18,24 @@
       <h1>Bem-vindo ao Jogo de Memória Acessível!</h1>
       <p>Por favor, digite seu nome para começar:</p>
       <input type="text" id="playerName" placeholder="Seu Nome" required />
-      <button onclick="startGame()">Start</button>
+      <button onclick="startGame()">Jogar</button>
+
+      <!-- Ranking Section -->
+      <div class="ranking-container">
+        <h2>Ranking</h2>
+        <table id="rankingTable">
+          <thead>
+            <tr>
+              <th>Posição</th>
+              <th>Nome</th>
+              <th>Pontuação</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
+
     <script src="../accssible-memory-game/scripts/index.js"></script>
   </body>
 </html>

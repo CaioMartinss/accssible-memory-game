@@ -31,7 +31,7 @@ input {
 }
 
 button {
-  background-color: #4caf50;
+  background-color: #000000;
   color: #ffffff;
   border: none;
   padding: 10px 20px;
@@ -42,5 +42,28 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #3b3b3b;
+}
+
+/* ranking.css */
+.ranking-container {
+  margin-top: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #000000;
+  color: #ffffff;
 }

@@ -168,14 +168,31 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pairsFound === cardImages.length) {
       const maxAttempts = cardImages.length * 2 // Número máximo de tentativas possíveis
       const score = calculateScore(attempts, maxAttempts)
-      showSuccessMessage(score)
+
+      // Atualiza a mensagem de conclusão com o nome do jogador e pontuação
+      showSuccessMessage(userName, score)
+
+      // Atualiza o usuário com a pontuação
       updateUser(score)
     }
   }
 
-  const showSuccessMessage = () => {
+  const showSuccessMessage = (playerName, score) => {
+    const botaoReiniciar = document.querySelector('.button-reiniciar')
+    botaoReiniciar.style.display = 'none'
     const successMessage = document.querySelector('.success-message')
-    successMessage.classList.toggle('hidden', pairsFound !== cardImages.length)
+    const successMessageText = successMessage.querySelector(
+      '.success-message-text'
+    )
+
+    // Atualiza a mensagem para mostrar o nome do jogador e a pontuação
+    successMessageText.innerHTML = `
+    <h2>Parabéns, ${playerName}!</h2>
+    <p>Sua pontuação: ${score}</p>
+    <button class="button-reiniciar" onclick="jogarNovamente()">Jogar novamente</button>
+  `
+
+    successMessage.classList.remove('hidden')
   }
 
   const checkUser = () => {
@@ -185,3 +202,8 @@ document.addEventListener('DOMContentLoaded', () => {
   checkUser() // Chama a verificação ao carregar a página
   createCards() // Inicia o jogo ao carregar a página
 })
+
+function jogarNovamente() {
+  localStorage.removeItem('user')
+  window.location.href = '../index.html'
+}

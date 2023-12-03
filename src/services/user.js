@@ -21,6 +21,7 @@ export const deleteUser = async id => {
 
 export const updateUser = async (id, newBody) => {
   await databaseConnection()
-  const userUpdated = await User.findByIdAndUpdate(id, newBody)
+  await User.findByIdAndUpdate(id, newBody)
+  const userUpdated = await User.findById(id)
   return userUpdated
 }
