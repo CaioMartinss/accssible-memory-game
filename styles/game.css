@@ -1,5 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap');
+
+html {
+  cursor: url('../../accssible-memory-game/assets/mouse_arrow_pointer.svg'),
+    auto;
+}
+
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Roboto Slab', serif;
   text-align: center;
 }
 
@@ -29,7 +36,7 @@ img {
   justify-content: center;
   border-radius: 12px;
   font-size: 20px;
-  cursor: pointer;
+  cursor: url('../../accssible-memory-game/assets/ponteiro.png'), auto;
 }
 
 .success-message.hidden {
@@ -37,11 +44,18 @@ img {
 }
 
 .button-reiniciar {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
   border: none;
   padding: 10px 20px;
   font-size: 16px;
   border-radius: 8px;
-  cursor: pointer;
+  transition: background-color 0.3s;
+  border: 1px solid #000000;
+}
+
+.button-reiniciar:hover {
+  cursor: url('../../accssible-memory-game/assets/ponteiro.png'), auto;
+  background-color: #a8a8a8;
+  color: #ffffff;
 }
