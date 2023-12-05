@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Calcula a pontuação do jogador
   const calculateScore = (attempts, maxAttempts) => {
-    const maxScore = 1500 // Pontuação máxima por partida
+    const maxScore = 100 // Pontuação máxima por partida
     const score = Math.max(0, maxScore - (attempts / maxAttempts) * maxScore)
     return Math.round(score)
   }

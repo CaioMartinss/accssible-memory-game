@@ -4,16 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const startButton = document.querySelector('button')
   const rankingTableBody = document.querySelector('#rankingTable tbody')
 
-  startButton.addEventListener('click', () => startGame(playerNameInput.value))
+  startButton.addEventListener('click', () => staartGame(playerNameInput.value))
 
-  function startGame(playerName) {
+  function staartGame(playerName) {
     if (playerName.trim() !== '') {
       // Redireciona para a página do jogo com o nome do jogador
       window.location.href = `../../accssible-memory-game/pages/game.html?name=${encodeURIComponent(
         playerName
       )}`
     } else {
-      alert('Digite seu nome para começar!')
+      Swal.fire({
+        title: "Atenção",
+        text: "Por favor, digite seu nome para começar o jogo.",
+        icon: "warning",
+        confirmButtonColor: "#000",
+      });
     }
   }
 
