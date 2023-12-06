@@ -4,12 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/index.css" />
-    <link rel="shortcut icon" href="assets/caveira.svg" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="../accssible-memory-game/assets/imgs/caveira.svg"
+      type="image/x-icon"
+    />
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <title>Jogo de Memória Acessível - Boas-vindas</title>
   </head>
 
   <body>
+    <!-- Adicionando os campos de audios -->
+    <audio id="audioClique" controls style="display: none">
+      <source
+        id="audioCliqueSource"
+        type="audio/mpeg"
+        src="../accssible-memory-game/assets/music/clique_do_mouse.mp3"
+      />
+    </audio>
+
     <div class="welcome-container">
       <h1>Bem-vindo ao Jogo de Memória Acessível!</h1>
       <p>Por favor, digite seu nome para começar:</p>

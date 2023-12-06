@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap');
 
 html {
-  cursor: url('../../accssible-memory-game/assets/mouse_arrow_pointer.svg'),
+  cursor: url('../../accssible-memory-game/assets/cursors/mouse_arrow_pointer.svg'),
     auto;
 }
 
@@ -38,7 +38,8 @@ input {
 }
 
 input:hover {
-  cursor: url('../../accssible-memory-game/assets/mouse_i_cursor.svg'), auto;
+  cursor: url('../../accssible-memory-game/assets/cursors/mouse_i_cursor.svg'),
+    auto;
 }
 
 button {
@@ -53,7 +54,7 @@ button {
 }
 
 button:hover {
-  cursor: url('../../accssible-memory-game/assets/ponteiro.png'), auto;
+  cursor: url('../../accssible-memory-game/assets/cursors/ponteiro.png'), auto;
   background-color: #a8a8a8;
   color: #ffffff;
 }
@@ -85,5 +86,5 @@ th {
 /* Modal*/
 
 .swal2-confirm:hover {
-  cursor: url('../../accssible-memory-game/assets/ponteiro.png'), auto;
+  cursor: url('../../accssible-memory-game/assets/cursors/ponteiro.png'), auto;
 }

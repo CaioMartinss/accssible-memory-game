@@ -38,8 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const startButton = document.querySelector('button')
   const rankingTableBody = document.querySelector('#rankingTable tbody')
 
+  const audioClique = document.getElementById('audioClique')
+  const audioCliqueSource = document.getElementById('audioCliqueSource')
+
   // Adiciona um ouvinte de evento de clique ao botão de início
-  startButton.addEventListener('click', () => startGame(playerNameInput.value))
+  startButton.addEventListener('click', () => {
+    // Reproduz o som de clique ao clicar em uma carta
+    audioCliqueSource.src = '../assets/music/som_clique.mp3'
+    audioClique.play()
+    startGame(playerNameInput.value)
+  })
 
   // Função para renderizar o ranking
   function renderRanking(users) {
