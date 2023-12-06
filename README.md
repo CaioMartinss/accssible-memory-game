@@ -1,4 +1,4 @@
-# Jogo de Memória Acessível para Daltonismo
+# Jogo de Memória Acessível para Daltonicos
 
 Este é um jogo de memória acessível desenvolvido para pessoas com daltonismo.
 
