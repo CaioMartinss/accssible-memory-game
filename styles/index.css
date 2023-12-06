@@ -81,3 +81,9 @@ th {
   color: #000000;
   border: 1px solid #000000;
 }
+
+/* Modal*/
+
+.swal2-confirm:hover {
+  cursor: url('../../accssible-memory-game/assets/ponteiro.png'), auto;
+}

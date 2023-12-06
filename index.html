@@ -1,42 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="shortcut icon" href="assets/caveira.svg" type="image/x-icon" />
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <title>Jogo de Memória Acessível - Boas-vindas</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <body>
+    <div class="welcome-container">
+      <h1>Bem-vindo ao Jogo de Memória Acessível!</h1>
+      <p>Por favor, digite seu nome para começar:</p>
+      <input type="text" id="playerName" placeholder="Seu Nome" required />
+      <button>Jogar</button>
 
-  <link rel="stylesheet" href="styles/index.css" />
-  <link rel="shortcut icon" href="assets/caveira.svg" type="image/x-icon" />
-  <title>Jogo de Memória Acessível - Boas-vindas</title>
-</head>
-
-<body>
-  <div class="welcome-container">
-
-    <h1>Bem-vindo ao Jogo de Memória Acessível!</h1>
-    <p>Por favor, digite seu nome para começar:</p>
-    <input type="text" id="playerName" placeholder="Seu Nome" required />
-    <button onclick="staartGame()">Jogar</button>
-
-    <!-- Ranking Section -->
-    <div class="ranking-container">
-      <h2>Ranking</h2>
-      <table id="rankingTable">
-        <thead>
-          <tr>
-            <th>Posição</th>
-            <th>Nome</th>
-            <th>Pontuação</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <!-- Ranking Section -->
+      <div class="ranking-container">
+        <h2>Ranking</h2>
+        <table id="rankingTable">
+          <thead>
+            <tr>
+              <th>Posição</th>
+              <th>Nome</th>
+              <th>Pontuação</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
-  </div>
 
-  <script src="scripts/iindex.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
-</body>
-
+    <script src="scripts/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
 </html>
