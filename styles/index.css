@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap');
 
 html {
-  cursor: url('../../accssible-memory-game/assets/mouse_arrow_pointer.svg'),
+  cursor: url('../../accssible-memory-game/assets/cursors/mouse_arrow_pointer.svg'),
     auto;
 }
 
-body {
+.bucetinha {
   font-family: 'Roboto Slab', serif;
   text-align: center;
   background-color: #f0f0f0;
-  margin: 0;
-  padding: 0;
+  margin: 50;
+  padding: 50;
 }
 
 .welcome-container {
@@ -22,11 +22,11 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+.texto_h1 {
   color: #000000;
 }
 
-p {
+.texto_p {
   color: #666666;
   margin-bottom: 20px;
 }
@@ -38,10 +38,11 @@ input {
 }
 
 input:hover {
-  cursor: url('../../accssible-memory-game/assets/mouse_i_cursor.svg'), auto;
+  cursor: url('../../accssible-memory-game/assets/cursors/mouse_i_cursor.svg'),
+    auto;
 }
 
-button {
+.btn_jogar {
   background-color: #ffffff;
   color: #000000;
   border: none;
@@ -50,10 +51,12 @@ button {
   border-radius: 8px;
   transition: background-color 0.3s;
   border: 1px solid #000000;
+  margin-left: 230px;
+  margin-top: 10px;
 }
 
 button:hover {
-  cursor: url('../../accssible-memory-game/assets/ponteiro.png'), auto;
+  cursor: url('../../accssible-memory-game/assets/cursors/ponteiro.png'), auto;
   background-color: #a8a8a8;
   color: #ffffff;
 }
@@ -85,5 +88,5 @@ th {
 /* Modal*/
 
 .swal2-confirm:hover {
-  cursor: url('../../accssible-memory-game/assets/ponteiro.png'), auto;
+  cursor: url('../../accssible-memory-game/assets/cursors/ponteiro.png'), auto;
 }

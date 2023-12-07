@@ -32,14 +32,24 @@ function startGame(playerName) {
   }
 }
 
+// Função para tocar os sons
+function playClickSong() {
+  const audioClique = document.getElementById('audioClique')
+  audioClique.play()
+}
+
 // index.js
 document.addEventListener('DOMContentLoaded', () => {
   const playerNameInput = document.getElementById('playerName')
   const startButton = document.querySelector('button')
   const rankingTableBody = document.querySelector('#rankingTable tbody')
+  const tutorialButton = document.getElementsByTagName('button')
 
   // Adiciona um ouvinte de evento de clique ao botão de início
-  startButton.addEventListener('click', () => startGame(playerNameInput.value))
+  startButton.addEventListener('click', () => {
+    playClickSong()
+    startGame(playerNameInput.value)
+  })
 
   // Função para renderizar o ranking
   function renderRanking(users) {

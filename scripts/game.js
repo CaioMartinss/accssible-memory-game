@@ -1,6 +1,7 @@
 // Numero de tentativas
 let attempts = 0
-// Obter o nome do usuario pela URL
+
+// Obter o nome do usuário pela URL
 const queryString = window.location.search
 const params = new URLSearchParams(queryString)
 
@@ -27,11 +28,11 @@ function createUser() {
     }
 
     axios
-      .post(`http://localhost:3006/user`, user)
+      .post('http://localhost:3006/user', user)
       .then(response => {
         const user = response.data
         setUserLocalStorage('user', JSON.stringify(user))
-        console.log(`usuario salvo, id: ${user._id}`)
+        console.log(`Usuário salvo, id: ${user._id}`)
       })
       .catch(error => {
         console.log(error)
@@ -49,10 +50,10 @@ function updateUser(score) {
       .then(response => {
         const updatedUser = response.data
         if (updatedUser.length === 0) {
-          console.log('Não foi obtida resposta da api')
+          console.log('Não foi obtida resposta da API')
         } else {
           setUserLocalStorage('user', JSON.stringify(updatedUser))
-          console.log(`Score do usuario atualizado: ${updatedUser.score}`)
+          console.log(`Score do usuário atualizado: ${updatedUser.score}`)
         }
       })
       .catch(error => {
@@ -61,19 +62,35 @@ function updateUser(score) {
   }
 }
 
+function playClickSong() {
+  const audioClique = document.getElementById('audioClique')
+  audioClique.play()
+}
+
+function playAudioMatch() {
+  const audioMatch = document.getElementById('audioMatch')
+  audioMatch.play()
+}
+
+function playAudioNoMatch() {
+  const audioNoMatch = document.getElementById('audioNoMatch')
+  audioNoMatch.play()
+}
 // script.js
 document.addEventListener('DOMContentLoaded', () => {
   const memoryGame = document.getElementById('memoryGame')
+
+  // Pares de valores para as cartas
   const cardImages = [
-    '../assets/coracao.svg',
-    '../assets/fantasma.svg',
-    '../assets/dragao.svg',
-    '../assets/gamepad.svg',
-    '../assets/caveira.svg',
-    '../assets/tabuleiro_de_xadrez.svg',
-    '../assets/quadrado.svg',
-    '../assets/chapeu_de_mago.svg'
-  ] // Pares de valores para as cartas
+    '../assets/imgs/coracao.svg',
+    '../assets/imgs/fantasma.svg',
+    '../assets/imgs/dragao.svg',
+    '../assets/imgs/gamepad.svg',
+    '../assets/imgs/caveira.svg',
+    '../assets/imgs/tabuleiro_de_xadrez.svg',
+    '../assets/imgs/quadrado.svg',
+    '../assets/imgs/chapeu_de_mago.svg'
+  ]
 
   // Duplica os valores para criar pares
   const allCardImages = cardImages.concat(cardImages)
@@ -98,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.className = 'card'
       card.dataset.value = imagePath
       card.dataset.index = index
-      cardImage.src = '../assets/carta_virada.svg' // Imagem da parte de trás da carta
+      cardImage.src = '../assets/imgs/carta_virada.svg' // Imagem da parte de trás da carta
       cardImage.alt = 'Card Back' // Texto alternativo para a imagem da parte de trás
       card.appendChild(cardImage)
       card.addEventListener('click', flipCard)
@@ -112,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cardImage = card.querySelector('img')
         cardImage.src = card.dataset.value
         setTimeout(() => {
-          cardImage.src = '../assets/carta_virada.svg'
+          cardImage.src = '../assets/imgs/carta_virada.svg'
         }, 3000) // 3 segundos para memorização
       })
     }, 300)
@@ -124,13 +141,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectedCard = event.currentTarget
     const cardImage = selectedCard.querySelector('img')
 
+    // Reproduz o som de clique ao clicar em uma carta
+    playClickSong()
+
     if (flippedCards.length < 2 && !flippedCards.includes(selectedCard)) {
       cardImage.src = selectedCard.dataset.value
       flippedCards.push(selectedCard)
 
       if (flippedCards.length === 2) {
         attempts++ // Incrementa o número de tentativas após dois cliques
-        setTimeout(checkMatch, 500)
+        setTimeout(checkMatch, 300)
       }
     }
   }
@@ -145,20 +165,26 @@ document.addEventListener('DOMContentLoaded', () => {
       card2.removeEventListener('click', flipCard)
       pairsFound++
       checkWin()
+
+      //reproduz o som de par encontrado
+      playAudioMatch()
     } else {
       // Cartas não formam um par, vira de volta
       const card1Image = card1.querySelector('img')
       const card2Image = card2.querySelector('img')
-      card1Image.src = '../assets/carta_virada.svg'
-      card2Image.src = '../assets/carta_virada.svg'
+      card1Image.src = '../assets/imgs/carta_virada.svg'
+      card2Image.src = '../assets/imgs/carta_virada.svg'
+
+      //reproduz o som de par não encontrado
+      playAudioNoMatch()
     }
 
     flippedCards = [] // Limpa as cartas viradas
   }
 
-  // Calcula a pontuação do jogador
+  // Calcula a pontuação do jogador - 8 pares de cartas
   const calculateScore = (attempts, maxAttempts) => {
-    const maxScore = 100 // Pontuação máxima por partida
+    const maxScore = 800 // Pontuação máxima por partida
     const score = Math.max(0, maxScore - (attempts / maxAttempts) * maxScore)
     return Math.round(score)
   }
@@ -166,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Verifica se todas as cartas foram encontradas
   const checkWin = () => {
     if (pairsFound === cardImages.length) {
-      const maxAttempts = cardImages.length * 2 // Número máximo de tentativas possíveis
+      const maxAttempts = cardImages.length * 50 // Número máximo de tentativas possíveis
       const score = calculateScore(attempts, maxAttempts)
 
       // Atualiza a mensagem de conclusão com o nome do jogador e pontuação
