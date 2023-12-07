@@ -62,6 +62,20 @@ function updateUser(score) {
   }
 }
 
+function playClickSong() {
+  const audioClique = document.getElementById('audioClique')
+  audioClique.play()
+}
+
+function playAudioMatch() {
+  const audioMatch = document.getElementById('audioMatch')
+  audioMatch.play()
+}
+
+function playAudioNoMatch() {
+  const audioNoMatch = document.getElementById('audioNoMatch')
+  audioNoMatch.play()
+}
 // script.js
 document.addEventListener('DOMContentLoaded', () => {
   const memoryGame = document.getElementById('memoryGame')
@@ -77,14 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
     '../assets/imgs/quadrado.svg',
     '../assets/imgs/chapeu_de_mago.svg'
   ]
-
-  // Audios do game
-  const audioMatch = document.getElementById('audioMatch')
-  const audioMatchSource = document.getElementById('audioMatchSource')
-  const audioNoMatch = document.getElementById('audioNoMatch')
-  const audioNoMatchSource = document.getElementById('audioNoMatchSource')
-  const audioClique = document.getElementById('audioClique')
-  const audioCliqueSource = document.getElementById('audioCliqueSource')
 
   // Duplica os valores para criar pares
   const allCardImages = cardImages.concat(cardImages)
@@ -136,8 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardImage = selectedCard.querySelector('img')
 
     // Reproduz o som de clique ao clicar em uma carta
-    audioCliqueSource.src = '../assets/music/som_clique.mp3'
-    audioClique.play()
+    playClickSong()
 
     if (flippedCards.length < 2 && !flippedCards.includes(selectedCard)) {
       cardImage.src = selectedCard.dataset.value
@@ -145,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (flippedCards.length === 2) {
         attempts++ // Incrementa o número de tentativas após dois cliques
-        setTimeout(checkMatch, 500)
+        setTimeout(checkMatch, 300)
       }
     }
   }
@@ -161,9 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
       pairsFound++
       checkWin()
 
-      // Atualiza o src e reproduz o som de par encontrado
-      audioMatchSource.src = '../assets/music/som_par_encontrado.mp3'
-      audioMatch.play()
+      //reproduz o som de par encontrado
+      playAudioMatch()
     } else {
       // Cartas não formam um par, vira de volta
       const card1Image = card1.querySelector('img')
@@ -171,17 +175,16 @@ document.addEventListener('DOMContentLoaded', () => {
       card1Image.src = '../assets/imgs/carta_virada.svg'
       card2Image.src = '../assets/imgs/carta_virada.svg'
 
-      // Atualiza o src e reproduz o som de par não encontrado
-      audioNoMatchSource.src = '../assets/music/som_par_nao_encontrado.mp3'
-      audioNoMatch.play()
+      //reproduz o som de par não encontrado
+      playAudioNoMatch()
     }
 
     flippedCards = [] // Limpa as cartas viradas
   }
 
-  // Calcula a pontuação do jogador
+  // Calcula a pontuação do jogador - 8 pares de cartas
   const calculateScore = (attempts, maxAttempts) => {
-    const maxScore = 1000 // Pontuação máxima por partida
+    const maxScore = 800 // Pontuação máxima por partida
     const score = Math.max(0, maxScore - (attempts / maxAttempts) * maxScore)
     return Math.round(score)
   }
