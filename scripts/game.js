@@ -8,12 +8,22 @@ const params = new URLSearchParams(queryString)
 // Obter o valor do parâmetro 'name' (nome do usuário)
 const userName = params.get('name')
 
-// Função para criar ou obter o cookie
+// Função para obter um localstorage
+function getUrlImgPokemon(key) {
+  return localStorage.getItem(key)
+}
+
+// Função para definir um localstorage
+function setUrlImgPokemon(key, data) {
+  localStorage.setItem(key, data)
+}
+
+// Função para obter um localstorage
 function getUserLocalStorage(key) {
   return localStorage.getItem(key)
 }
 
-// Função para definir um cookie
+// Função para definir um localstorage
 function setUserLocalStorage(key, data) {
   localStorage.setItem(key, data)
 }
@@ -76,21 +86,79 @@ function playAudioNoMatch() {
   const audioNoMatch = document.getElementById('audioNoMatch')
   audioNoMatch.play()
 }
+
+// Função para carregar as imagens de Pokémon
+async function loadPokemonImages() {
+  // Array de cartas com nome e URL
+  const cardImages = [
+    { nome: 'coracao', url: '../assets/imgs/coracao.svg' },
+    { nome: 'fantasma', url: '../assets/imgs/fantasma.svg' },
+    { nome: 'dragao', url: '../assets/imgs/dragao.svg' },
+    { nome: 'gamepad', url: '../assets/imgs/gamepad.svg' },
+    { nome: 'caveira', url: '../assets/imgs/caveira.svg' },
+    {
+      nome: 'tabuleiro_de_xadrez',
+      url: '../assets/imgs/tabuleiro_de_xadrez.svg'
+    },
+    { nome: 'quadrado', url: '../assets/imgs/quadrado.svg' },
+    { nome: 'chapeu_de_mago', url: '../assets/imgs/chapeu_de_mago.svg' }
+  ]
+
+  // Função para obter um número aleatório entre 1 e 150 (ou o número total de Pokémon)
+  const getRandomPokemonId = usedIds => {
+    let randomId
+    do {
+      randomId = Math.floor(Math.random() * 150) + 1
+    } while (usedIds.includes(randomId))
+    return randomId
+  }
+
+  // Obtém o array de Pokémon do localStorage
+  let pokemonArray = []
+  let usedIds = []
+
+  // Adiciona até 8 novos Pokémon ao array
+  for (let i = 0; i < 8; i++) {
+    const randomPokemonId = getRandomPokemonId(usedIds)
+
+    // Marca o ID como usado
+    usedIds.push(randomPokemonId)
+
+    // Verifica se o Pokémon ainda não está no array
+    try {
+      const response = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${randomPokemonId}`
+      )
+      const pokemonData = response.data
+      const pokemon = {
+        id: pokemonData.id,
+        name: pokemonData.name,
+        urlImage: pokemonData.sprites.front_default
+        // Use outras propriedades de sprites conforme necessário
+      }
+      // Adiciona o novo Pokémon ao array
+      pokemonArray.push(pokemon)
+    } catch (error) {
+      console.error(`Erro ao carregar Pokémon ${randomPokemonId}:`, error)
+      // Se houver um erro, adicione a imagem do card ao array
+      const cardImage = cardImages[i] || {
+        nome: 'Card',
+        url: '../assets/imgs/default_card.svg'
+      }
+      pokemonArray.push({ name: cardImage.nome, urlImage: cardImage.url })
+    }
+  }
+
+  // Salva o array atualizado no localStorage
+  setUrlImgPokemon('pokemons', JSON.stringify(pokemonArray))
+}
+
 // script.js
 document.addEventListener('DOMContentLoaded', () => {
   const memoryGame = document.getElementById('memoryGame')
 
-  // Pares de valores para as cartas
-  const cardImages = [
-    '../assets/imgs/coracao.svg',
-    '../assets/imgs/fantasma.svg',
-    '../assets/imgs/dragao.svg',
-    '../assets/imgs/gamepad.svg',
-    '../assets/imgs/caveira.svg',
-    '../assets/imgs/tabuleiro_de_xadrez.svg',
-    '../assets/imgs/quadrado.svg',
-    '../assets/imgs/chapeu_de_mago.svg'
-  ]
+  // Cartas com nome e caminho da imagem
+  const cardImages = JSON.parse(getUrlImgPokemon('pokemons'))
 
   // Duplica os valores para criar pares
   const allCardImages = cardImages.concat(cardImages)
@@ -109,11 +177,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const createCards = () => {
     shuffleCards(allCardImages)
 
-    allCardImages.forEach((imagePath, index) => {
+    allCardImages.forEach((cardInfo, index) => {
       const card = document.createElement('div')
       const cardImage = document.createElement('img')
       card.className = 'card'
-      card.dataset.value = imagePath
+      card.dataset.value = cardInfo.urlImage
       card.dataset.index = index
       cardImage.src = '../assets/imgs/carta_virada.svg' // Imagem da parte de trás da carta
       cardImage.alt = 'Card Back' // Texto alternativo para a imagem da parte de trás
@@ -130,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cardImage.src = card.dataset.value
         setTimeout(() => {
           cardImage.src = '../assets/imgs/carta_virada.svg'
-        }, 3000) // 3 segundos para memorização
+        }, 5000) // 5 segundos para memorização
       })
     }, 300)
   }
@@ -226,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   checkUser() // Chama a verificação ao carregar a página
+  loadPokemonImages() // Chama a função para carregar as imagens de Pokémon
   createCards() // Inicia o jogo ao carregar a página
 })
 
