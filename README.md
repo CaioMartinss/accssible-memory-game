@@ -26,23 +26,12 @@ npm install
 ```
 
 Certifique-se de ter um servidor MongoDB em execução.
-Crie um arquivo database.js no diretório src com o seguinte conteúdo:
+Crie um arquivo .env no diretório backend com o seguinte conteúdo:
 
-```javascript
-// src/database.js
-import mongoose from 'mongoose';
-
-const URI = 'sua url do MongoDB';
-
-const databaseConnection = async () => {
-  if (!global.mongoose) {
-    mongoose.set('strictQuery', false);
-    global.mongoose = await mongoose.connect(URI);
-  }
-};
-
-export default databaseConnection;
-
+```.env
+// .env
+DATABASE_URL="mongodb+srv://you-user:<password>@jogo-da-memoria.aozxlft.mongodb.net/jogo-da-memoria?retryWrites=true&w=majority&appName=jogo-da-memoria"
+// altere o usuario e senha para o seu gerado no mongodb
 ```
 
 Certifique-se de substituir 'sua url do MongoDB' pela URL real do seu banco de dados.
