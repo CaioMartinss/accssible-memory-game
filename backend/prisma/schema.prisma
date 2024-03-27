@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  email      String
+  password   String
+  score      Int?      @default(0)
+  created_at DateTime  @default(now())
+  Ranking    Ranking[]
+
+  @@map("players")
+}
+
+model Ranking {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  player     Player   @relation(fields: [player_id], references: [id])
+  created_at DateTime @default(now())
+  player_id  String   @db.ObjectId
+  score      Float
+
+  @@map("ranking")
+}
