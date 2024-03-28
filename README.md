@@ -15,7 +15,7 @@ git clone https://github.com/seu-usuario/nome-do-repositorio.git
 2. Navegue até o diretório do projeto:
 
 ```
-cd nome-do-repositorio/backent
+cd nome-do-repositorio/backend
 ```
 
 3.  Instale as dependências:
