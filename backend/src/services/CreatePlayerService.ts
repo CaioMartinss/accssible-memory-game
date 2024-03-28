@@ -5,11 +5,10 @@ interface createPlayerProps {
   name: string
   email: string
   password: string
-  score: number
 }
 
 export class CreatePlayerService {
-  async execute({ name, email, password, score }: createPlayerProps) {
+  async execute({ name, email, password }: createPlayerProps) {
     const userWithSameEmail = await prismaCliente.player.findFirst({
       where: {
         email
@@ -24,8 +23,7 @@ export class CreatePlayerService {
       data: {
         name,
         email,
-        password,
-        score
+        password
       }
     })
 
