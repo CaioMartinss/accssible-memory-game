@@ -12,7 +12,6 @@ model Player {
   name       String
   email      String
   password   String
-  score      Int?      @default(0)
   created_at DateTime  @default(now())
   Ranking    Ranking[]
 

@@ -20,8 +20,7 @@ export async function RegisterPlayer(
     const player = await createPlayer.execute({
       name,
       email,
-      password,
-      score: 0
+      password
     })
 
     return reply.send(player)
@@ -33,7 +32,7 @@ export async function RegisterPlayer(
       return reply.code(404).send({ error: error.message })
     }
     return reply.status(500).send({
-      error: 'bucetinha suja'
+      error: 'Erro interno do servidor'
     })
   }
 }
