@@ -16,12 +16,18 @@ git clone https://github.com/seu-usuario/nome-do-repositorio.git
 2. Navegue até o diretório do projeto:
 
 ```
-cd nome-do-repositorio
+cd nome-do-repositorio/backent
 ```
 
-3.Instale as dependências:
+3.  Instale as dependências:
 
 ```
+npm install
+```
+4.  Instale as dependências do frontend:
+
+```
+cd ../frontend
 npm install
 ```
 
