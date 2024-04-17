@@ -24,15 +24,16 @@ function createUser() {
   if (!existingUser) {
     const user = {
       name: userName,
-      score: 0
+      email: 'alefe@gmail.com',
+      password: 'alefe23412'
     }
 
     axios
-      .post('http://localhost:3006/user', user)
+      .post('http://localhost:3333/player', user)
       .then(response => {
         const user = response.data
         setUserLocalStorage('user', JSON.stringify(user))
-        console.log(`Usuário salvo, id: ${user._id}`)
+        console.log(`Usuário salvo, id: ${user.id}`)
       })
       .catch(error => {
         console.log(error)
@@ -230,6 +231,6 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function jogarNovamente() {
-  localStorage.removeItem('user')
-  window.location.href = '../index.html'
+  //localStorage.removeItem('user')
+  window.location.href = '../../../index.html'
 }
