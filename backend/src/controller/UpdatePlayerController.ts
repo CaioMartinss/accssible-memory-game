@@ -1,8 +1,9 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { UpdatePlayerService } from '../services/UpdatePlayerService'
-import z from 'zod'
 
-export async function UpdatePlayerController(
+import z from 'zod'
+import { UpdatePlayerService } from '../services/UpdatePlayerService'
+
+export async function UpdatePlayer(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
@@ -12,18 +13,18 @@ export async function UpdatePlayerController(
 
   const updateBodySchema = z.object({
     name: z.string().optional(),
-    password: z.string().min(8).optional()
+    score: z.number().optional()
   })
 
   const { id } = updateParamsSchema.parse(request.params)
-  const { name, password } = updateBodySchema.parse(request.body)
+  const { name, score } = updateBodySchema.parse(request.body)
   const updatePlayer = new UpdatePlayerService()
 
   try {
     const player = await updatePlayer.execute({
       id,
       name,
-      password
+      score
     })
 
     return reply.send(player)

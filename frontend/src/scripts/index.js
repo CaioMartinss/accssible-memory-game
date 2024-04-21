@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const playerNameInput = document.getElementById('playerName')
   const startButton = document.querySelector('button')
   const rankingTableBody = document.querySelector('#rankingTable tbody')
-  const tutorialButton = document.getElementsByTagName('button')
 
   // Adiciona um ouvinte de evento de clique ao botão de início
   startButton.addEventListener('click', () => {

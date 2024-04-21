@@ -1,8 +1,9 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { ListPlayersService } from '../services/ListPlayersService'
-import { PlayerDataNotFound } from '../services/erros/player-data-not-found'
 
-export async function ListPlayersController(
+import { PlayerDataNotFound } from '../services/erros/player-data-not-found'
+import { ListPlayersService } from '../services/ListPlayersService'
+
+export async function ListPlayers(
   request: FastifyRequest,
   reply: FastifyReply
 ) {

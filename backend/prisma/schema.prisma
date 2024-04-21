@@ -8,22 +8,9 @@ datasource db {
 }
 
 model Player {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  email      String
-  password   String
-  created_at DateTime  @default(now())
-  Ranking    Ranking[]
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  score Int
 
   @@map("players")
-}
-
-model Ranking {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  player     Player   @relation(fields: [player_id], references: [id])
-  created_at DateTime @default(now())
-  player_id  String   @db.ObjectId
-  score      Float
-
-  @@map("ranking")
 }
