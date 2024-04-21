@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="frontend/src/styles/index.css" />
     <link
       rel="shortcut icon"
-      href="../accssible-memory-game/assets/imgs/caveira.svg"
+      href="/frontend/src/assets/imgs/caveira.svg"
       type="image/x-icon"
     />
     <link
@@ -24,7 +24,7 @@
       <source
         id="audioCliqueSource"
         type="audio/mpeg"
-        src="../accssible-memory-game/assets/music/clique_do_mouse.mp3"
+        src="frontend/src/assets/music/clique_do_mouse.mp3"
       />
     </audio>
 
@@ -117,19 +117,12 @@
             >
               Fechar
             </button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              onclick="playClickSong()"
-            >
-              Próximo
-            </button>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="scripts/index.js"></script>
+    <script src="frontend/src/scripts/index.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

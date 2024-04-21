@@ -1,26 +1,25 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { CreatePlayerService } from '../services/CreatePlayerService'
+
 import z from 'zod'
 import { PlayerAlreadyExistsError } from '../services/erros/player-already-exists-error'
 import { PlayerDataNotFound } from '../services/erros/player-data-not-found'
+import { CreatePlayerService } from '../services/CreatePlayerService'
 
-export async function RegisterPlayer(
+export async function CreatePlayer(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
   const registerBodySchema = z.object({
     name: z.string(),
-    email: z.string().email(),
-    password: z.string().min(8)
+    score: z.number()
   })
-  const { name, email, password } = registerBodySchema.parse(request.body)
+  const { name, score } = registerBodySchema.parse(request.body)
 
   const createPlayer = new CreatePlayerService()
   try {
     const player = await createPlayer.execute({
       name,
-      email,
-      password
+      score
     })
 
     return reply.send(player)

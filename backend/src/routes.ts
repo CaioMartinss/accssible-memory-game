@@ -4,10 +4,10 @@ import {
   FastifyRequest,
   FastifyReply
 } from 'fastify'
-import { RegisterPlayer } from './controllers/CreatePlayerController'
-import { ListPlayersController } from './controllers/ListPlayerController'
-import { DeletePlayer } from './controllers/DeletePlayerController'
-import { UpdatePlayerController } from './controllers/UpdatePlayerController'
+import { ListPlayers } from './controller/ListPlayerController'
+import { CreatePlayer } from './controller/CreatePlayerController'
+import { UpdatePlayer } from './controller/UpdatePlayerController'
+import { DeletePlayer } from './controller/DeletePlayerController'
 
 export async function routes(
   fastify: FastifyInstance,
@@ -16,21 +16,21 @@ export async function routes(
   fastify.get(
     '/player',
     async (request: FastifyRequest, reply: FastifyReply) => {
-      return ListPlayersController(request, reply)
+      return ListPlayers(request, reply)
     }
   )
 
   fastify.post(
     '/player',
     async (request: FastifyRequest, reply: FastifyReply) => {
-      return RegisterPlayer(request, reply)
+      return CreatePlayer(request, reply)
     }
   )
 
   fastify.put(
     '/player/:id',
     async (request: FastifyRequest, reply: FastifyReply) => {
-      return UpdatePlayerController(request, reply)
+      return UpdatePlayer(request, reply)
     }
   )
 
@@ -38,19 +38,6 @@ export async function routes(
     '/player',
     async (request: FastifyRequest, reply: FastifyReply) => {
       return DeletePlayer(request, reply)
-    }
-  )
-
-  fastify.get(
-    '/ranking',
-    async (request: FastifyRequest, reply: FastifyReply) => {
-      return { ok: true }
-    }
-  )
-  fastify.post(
-    '/ranking',
-    async (request: FastifyRequest, reply: FastifyReply) => {
-      return { ok: true }
     }
   )
 }

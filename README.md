@@ -12,14 +12,25 @@ Certifique-se de ter o Node.js e o npm instalados antes de prosseguir.
 git clone https://github.com/seu-usuario/nome-do-repositorio.git
 ```
 
-
 2. Navegue até o diretório do projeto:
 
 ```
-cd nome-do-repositorio
+cd nome-do-repositorio/backend
 ```
 
-3.Instale as dependências:
+3.  Instale as dependências:
+
+```
+npm install
+```
+
+4.  Navegue até o diretório do frontend:
+
+```
+cd ../frontend
+```
+
+5.  Instale as dependências:
 
 ```
 npm install
@@ -37,6 +48,7 @@ DATABASE_URL="mongodb+srv://you-user:<password>@jogo-da-memoria.aozxlft.mongodb.
 Certifique-se de substituir 'sua url do MongoDB' pela URL real do seu banco de dados.
 
 Execute o seguinte comando para iniciar a API:
+
 ```
 npm run dev
 ```

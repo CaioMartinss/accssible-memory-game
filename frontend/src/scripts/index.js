@@ -18,7 +18,7 @@ checkUser()
 function startGame(playerName) {
   if (playerName.trim() !== '') {
     // Redireciona para a página do jogo com o nome do jogador
-    window.location.href = `../../accssible-memory-game/pages/game.html?name=${encodeURIComponent(
+    window.location.href = `/frontend/src/pages/game.html?name=${encodeURIComponent(
       playerName
     )}`
   } else {
@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const playerNameInput = document.getElementById('playerName')
   const startButton = document.querySelector('button')
   const rankingTableBody = document.querySelector('#rankingTable tbody')
-  const tutorialButton = document.getElementsByTagName('button')
 
   // Adiciona um ouvinte de evento de clique ao botão de início
   startButton.addEventListener('click', () => {
@@ -70,11 +69,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Função para carregar o ranking
   function loadRanking() {
+    const rakingDiv = document.querySelector('.ranking-container')
     axios
-      .get('http://localhost:3006/user')
+      .get('http://localhost:3333/player')
       .then(response => {
         const users = response.data
-        console.log(users)
+        if (!users) {
+          rakingDiv.console.log('Não foi possível carregar o ranking')
+        }
         renderRanking(users)
       })
       .catch(error => {

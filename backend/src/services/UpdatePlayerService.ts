@@ -4,11 +4,11 @@ import { PlayerNotFound } from './erros/player-not-found'
 interface updatePlayerProps {
   id: string
   name?: string
-  password?: string
+  score?: number
 }
 
 export class UpdatePlayerService {
-  async execute({ id, name, password }: updatePlayerProps) {
+  async execute({ id, name, score }: updatePlayerProps) {
     const playerExists = await prismaCliente.player.findFirst({
       where: {
         id
@@ -25,7 +25,7 @@ export class UpdatePlayerService {
       },
       data: {
         name,
-        password
+        score
       }
     })
 

@@ -28,11 +28,11 @@ function createUser() {
     }
 
     axios
-      .post('http://localhost:3006/user', user)
+      .post('http://localhost:3333/player', user)
       .then(response => {
         const user = response.data
         setUserLocalStorage('user', JSON.stringify(user))
-        console.log(`Usuário salvo, id: ${user._id}`)
+        console.log(`Usuário salvo, id: ${user.id}`)
       })
       .catch(error => {
         console.log(error)
@@ -43,10 +43,14 @@ function createUser() {
 function updateUser(score) {
   const existingUser = getUserLocalStorage('user')
   if (existingUser) {
-    let user = JSON.parse(existingUser)
-    user.score = score
+    console.log(existingUser)
+    let recoveryUser = JSON.parse(existingUser)
+    const user = {
+      name: recoveryUser.name,
+      score: score
+    }
     axios
-      .put(`http://localhost:3006/user/${user._id}`, user)
+      .put(`http://localhost:3333/player/${recoveryUser.id}`, user)
       .then(response => {
         const updatedUser = response.data
         if (updatedUser.length === 0) {
@@ -230,6 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function jogarNovamente() {
-  localStorage.removeItem('user')
-  window.location.href = '../index.html'
+  //localStorage.removeItem('user')
+  window.location.href = '../../../index.html'
 }
